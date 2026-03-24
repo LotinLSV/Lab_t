@@ -6,13 +6,13 @@ import os
 from . import models, database
 from .routes import auth, chat, projects
 
+os.makedirs("app/static/css", exist_ok=True)
+os.makedirs("data", exist_ok=True)
+os.makedirs("data/uploads", exist_ok=True)
+
 models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI(title="VIPPE Portal")
-
-os.makedirs("app/static/css", exist_ok=True)
-os.makedirs("data", exist_ok=True)
-os.makedirs("uploads", exist_ok=True)
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
