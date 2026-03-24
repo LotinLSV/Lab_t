@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+    <div class="px-4 py-5 sm:px-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Visão Geral</h3>
+        <p class="mt-1 max-w-2xl text-sm text-gray-500">Informações e acesso aos seus serviços.</p>
+    </div>
+    <div class="border-t border-gray-200">
+        <dl>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">Sua instância n8n</dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {% if user.n8n_link %}
+                    <a href="{{ user.n8n_link }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 font-semibold flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        Acessar n8n
+                    </a>
+                    {% else %}
+                    <span class="text-gray-400 italic">Nenhum link configurado.</span>
+                    {% endif %}
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+
+<div class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Configurações</h3>
+    </div>
+    <div class="p-6">
+        <form action="/auth/update_n8n" method="POST" class="max-w-md">
+            <div class="mb-4">
+                <label for="n8n_link" class="block text-sm font-medium text-gray-700">Atualizar link da instância n8n</label>
+                <div class="mt-1 flex rounded-md shadow-sm">
+                    <input type="url" name="n8n_link" id="n8n_link" value="{{ user.n8n_link or '' }}" class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-l-md border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="https://seu-nome.n8n.cloud">
+                    <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-r-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Salvar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
